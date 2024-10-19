@@ -13,5 +13,6 @@ pip install real2tex
 ```python
 from real2tex import real2tex
 
-real2tex(1.2345e-6, precision=2) # "1.23 \\times 10^{-6}"
+tex = real2tex(1.2345e-6, precision=2)
+print(tex) # "1.23 \cdot 10^{\minus 6}"
 ```
