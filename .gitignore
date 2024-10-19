@@ -1,0 +1,8 @@
+.venv
+.tox
+__pycache__
+.vscode
+.pytest*
+build
+dist
+*.egg-info

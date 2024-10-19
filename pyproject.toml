@@ -1,0 +1,18 @@
+[project]
+name = "real2tex"
+version = "1.0.0"
+authors = [
+  {name="Giuseppe Scarlato"},
+]
+description = "Converts a number to a LaTeX string in scientific notation."
+readme = "README.md"
+requires-python = ">=3.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Giuseppe499/real2tex"
+Issues = "https://github.com/Giuseppe499/real2tex/issues"
