@@ -15,9 +15,42 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from numbers import Real
+import copy
+
+DEFAULT_OPTIONS = {
+    "precision": [2, int],
+    "multiply_symbol": ["\\cdot", str],
+    "no_10_to_the_zero": [True, bool],
+}
+
+options = copy.deepcopy(DEFAULT_OPTIONS)
 
 
-def scientific_notation(num: Real, precision: int = 2) -> tuple[str, str, bool]:
+def set_options(**kwargs):
+    for key, value in kwargs.items():
+        if key in options:
+            if isinstance(value, options[key][1]):
+                options[key][0] = value
+            else:
+                raise ValueError(f"Value of {key} must be of type {options[key][1]}")
+        else:
+            raise ValueError(f"Unknown option {key}")
+
+
+def get_options() -> dict:
+    return {key: options[key][0] for key in options}
+
+
+def reset_options():
+    global options
+    options = copy.deepcopy(DEFAULT_OPTIONS)
+
+
+def scientific_notation(
+    num: Real, precision: int = None
+) -> tuple[str, str, bool]:
+    if precision is None:
+        precision = options["precision"][0]
     num_str = f"{num:.{precision}e}"
     mantissa, exponent = num_str.split("e")
     negative_exponent = True if exponent[0] == "-" else False
@@ -37,8 +70,18 @@ def scientific_notation(num: Real, precision: int = 2) -> tuple[str, str, bool]:
 
 
 def real2tex(
-    num: Real, precision: int = 2, multiply_symbol: str = "\\cdot", no_10_to_the_zero: bool = True
+    num: Real,
+    precision: int = None,
+    multiply_symbol: str = None,
+    no_10_to_the_zero: bool = None,
 ) -> str:
+    if precision is None:
+        precision = options["precision"][0]
+    if multiply_symbol is None:
+        multiply_symbol = options["multiply_symbol"][0]
+    if no_10_to_the_zero is None:
+        no_10_to_the_zero = options["no_10_to_the_zero"][0]
+
     mantissa, exponent, negative_exponent = scientific_notation(num, precision)
     if negative_exponent:
         exponent = f"\\minus {exponent}"
