@@ -26,29 +26,7 @@ DEFAULT_OPTIONS = {
 options = copy.deepcopy(DEFAULT_OPTIONS)
 
 
-def set_options(**kwargs):
-    for key, value in kwargs.items():
-        if key in options:
-            if isinstance(value, options[key][1]):
-                options[key][0] = value
-            else:
-                raise ValueError(f"Value of {key} must be of type {options[key][1]}")
-        else:
-            raise ValueError(f"Unknown option {key}")
-
-
-def get_options() -> dict:
-    return {key: options[key][0] for key in options}
-
-
-def reset_options():
-    global options
-    options = copy.deepcopy(DEFAULT_OPTIONS)
-
-
-def scientific_notation(
-    num: Real, precision: int = None
-) -> tuple[str, str, bool]:
+def scientific_notation(num: Real, precision: int = None) -> tuple[str, str, bool]:
     if precision is None:
         precision = options["precision"][0]
     num_str = f"{num:.{precision}e}"
@@ -88,3 +66,23 @@ def real2tex(
     if exponent == "0" and no_10_to_the_zero:
         return f"{mantissa}"
     return f"{mantissa} {multiply_symbol} 10^{{{exponent}}}"
+
+
+def set_options(**kwargs):
+    for key, value in kwargs.items():
+        if key in options:
+            if isinstance(value, options[key][1]):
+                options[key][0] = value
+            else:
+                raise ValueError(f"Value of {key} must be of type {options[key][1]}")
+        else:
+            raise ValueError(f"Unknown option {key}")
+
+
+def get_options() -> dict:
+    return {key: options[key][0] for key in options}
+
+
+def reset_options():
+    global options
+    options = copy.deepcopy(DEFAULT_OPTIONS)
