@@ -86,3 +86,15 @@ def get_options() -> dict:
 def reset_options():
     global options
     options = copy.deepcopy(DEFAULT_OPTIONS)
+
+
+class SetOptions:
+    def __init__(self, **kwargs):
+        self.old_options = get_options()
+        set_options(**kwargs)
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        set_options(**self.old_options)
