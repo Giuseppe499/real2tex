@@ -21,3 +21,9 @@ Issues = "https://github.com/Giuseppe499/real2tex/issues"
 pythonpath = [
   "src"
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=4.6.11",
+    "ruff>=0.0.17",
+]
