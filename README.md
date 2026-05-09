@@ -36,3 +36,10 @@ print(rt.get_options()) # Get current options
 
 rt.reset_options() # Reset options to default
 ```
+
+As an alternative to `set_options`, the `SetOptions` context manager can be used to temporarily change the options.
+```python
+with rt.SetOptions(precision=4, multiply_symbol="*"):
+    tex = rt.real2tex(1.2345e-6)
+    print(tex) # "1.2345 * 10^{\minus 6}"
+```
