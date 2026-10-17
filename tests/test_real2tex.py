@@ -15,11 +15,11 @@ def test_scientific_notation_float():
 
 
 def test_real2tex_float():
-    assert real2tex(1e-14, 2) == "1 \\cdot 10^{\\minus 14}"
+    assert real2tex(1e-14, 2) == "1 \\cdot 10^{-14}"
     assert real2tex(1.23e4, 2) == "1.23 \\cdot 10^{4}"
     assert real2tex(1.2300e4, 4) == "1.23 \\cdot 10^{4}"
     assert real2tex(1.2300e4, 6) == "1.23 \\cdot 10^{4}"
-    assert real2tex(0.000123, 3) == "1.23 \\cdot 10^{\\minus 4}"
+    assert real2tex(0.000123, 3) == "1.23 \\cdot 10^{-4}"
     assert real2tex(123456, 2) == "1.23 \\cdot 10^{5}"
     assert real2tex(1.23e4, 2, "*") == "1.23 * 10^{4}"
     assert real2tex(0.0, 2) == "0"

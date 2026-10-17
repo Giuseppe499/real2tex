@@ -7,14 +7,16 @@ def test_default_options():
     assert default_options["precision"] == 2
     assert default_options["multiply_symbol"] == "\\cdot"
     assert default_options["no_10_to_the_zero"] == True
+    assert default_options["minus_symbol"] == "-"
 
 
 def test_set_options():
-    set_options(precision=3, multiply_symbol="*", no_10_to_the_zero=False)
+    set_options(precision=3, multiply_symbol="*", no_10_to_the_zero=False, minus_symbol="--")
     options = get_options()
     assert options["precision"] == 3
     assert options["multiply_symbol"] == "*"
     assert options["no_10_to_the_zero"] == False
+    assert options["minus_symbol"] == "--"
     reset_options()
 
     set_options(precision=3)
@@ -22,6 +24,7 @@ def test_set_options():
     assert options["precision"] == 3
     assert options["multiply_symbol"] == "\\cdot"
     assert options["no_10_to_the_zero"] == True
+    assert options["minus_symbol"] == "-"
     reset_options()
 
     set_options(multiply_symbol="*")
@@ -29,6 +32,7 @@ def test_set_options():
     assert options["precision"] == 2
     assert options["multiply_symbol"] == "*"
     assert options["no_10_to_the_zero"] == True
+    assert options["minus_symbol"] == "-"
     reset_options()
 
     set_options(no_10_to_the_zero=False)
@@ -36,6 +40,7 @@ def test_set_options():
     assert options["precision"] == 2
     assert options["multiply_symbol"] == "\\cdot"
     assert options["no_10_to_the_zero"] == False
+    assert options["minus_symbol"] == "-"
     reset_options()
 
     set_options(precision=4, multiply_symbol="*")
@@ -43,6 +48,7 @@ def test_set_options():
     assert options["precision"] == 4
     assert options["multiply_symbol"] == "*"
     assert options["no_10_to_the_zero"] == True
+    assert options["minus_symbol"] == "-"
     reset_options()
 
 
@@ -57,22 +63,23 @@ def test_set_invalid_type():
 
 
 def test_reset_options():
-    set_options(precision=3, multiply_symbol="*", no_10_to_the_zero=False)
+    set_options(precision=3, multiply_symbol="*", no_10_to_the_zero=False, minus_symbol="--")
     reset_options()
     options = get_options()
     assert options["precision"] == 2
     assert options["multiply_symbol"] == "\\cdot"
     assert options["no_10_to_the_zero"] == True
+    assert options["minus_symbol"] == "-"
 
 
 def test_changed_options():
     set_options(precision=3, multiply_symbol="*", no_10_to_the_zero=False)
-    assert real2tex(0.00012345) == "1.234 * 10^{\\minus 4}"
-    assert real2tex(1e-14, 2) == "1 * 10^{\\minus 14}"
+    assert real2tex(0.00012345) == "1.234 * 10^{-4}"
+    assert real2tex(1e-14, 2) == "1 * 10^{-14}"
     assert real2tex(1.23e4, 2, multiply_symbol="\\cdot") == "1.23 \\cdot 10^{4}"
     assert real2tex(1.2300e4, 4) == "1.23 * 10^{4}"
     assert real2tex(1.2300e4, 6) == "1.23 * 10^{4}"
-    assert real2tex(0.000123) == "1.23 * 10^{\\minus 4}"
+    assert real2tex(0.000123) == "1.23 * 10^{-4}"
     assert real2tex(123456, 2) == "1.23 * 10^{5}"
     assert real2tex(1.23e4, 2, "*") == "1.23 * 10^{4}"
     assert real2tex(0.0, 2) == "0 * 10^{0}"
@@ -82,11 +89,11 @@ def test_changed_options():
     assert real2tex(1.1, 0) == "1 * 10^{0}"
     assert real2tex(1.1, 0, no_10_to_the_zero=True) == "1"
     reset_options()
-    assert real2tex(1e-14, 2) == "1 \\cdot 10^{\\minus 14}"
+    assert real2tex(1e-14, 2) == "1 \\cdot 10^{-14}"
     assert real2tex(1.23e4, 2) == "1.23 \\cdot 10^{4}"
     assert real2tex(1.2300e4, 4) == "1.23 \\cdot 10^{4}"
     assert real2tex(1.2300e4, 6) == "1.23 \\cdot 10^{4}"
-    assert real2tex(0.000123, 3) == "1.23 \\cdot 10^{\\minus 4}"
+    assert real2tex(0.000123, 3) == "1.23 \\cdot 10^{-4}"
     assert real2tex(123456, 2) == "1.23 \\cdot 10^{5}"
     assert real2tex(1.23e4, 2, "*") == "1.23 * 10^{4}"
     assert real2tex(0.0, 2) == "0"

@@ -14,7 +14,7 @@ pip install real2tex
 from real2tex import real2tex
 
 tex = real2tex(1.2345e-6, precision=2)
-print(tex) # "1.23 \cdot 10^{\minus 6}"
+print(tex) # "1.23 \cdot 10^{-6}"
 ```
 
 Is it also possible to change the default arguments of the module (`precision`, `multiply_symbol`,
@@ -26,11 +26,11 @@ the `get_options` function and reset to the default values with the
 import real2tex as rt
 
 tex = rt.real2tex(1.2345e-6)
-print(tex) # "1.23 \cdot 10^{\minus 6}"
+print(tex) # "1.23 \cdot 10^{-6}"
 
 rt.set_options(precision=4, multiply_symbol="*")
 tex = rt.real2tex(1.2345e-6)
-print(tex) # "1.2345 * 10^{\minus 6}"
+print(tex) # "1.2345 * 10^{-6}"
 
 print(rt.get_options()) # Get current options
 
@@ -41,5 +41,5 @@ As an alternative to `set_options`, the `SetOptions` context manager can be used
 ```python
 with rt.SetOptions(precision=4, multiply_symbol="*"):
     tex = rt.real2tex(1.2345e-6)
-    print(tex) # "1.2345 * 10^{\minus 6}"
+    print(tex) # "1.2345 * 10^{-6}"
 ```

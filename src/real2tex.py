@@ -21,6 +21,7 @@ DEFAULT_OPTIONS = {
     "precision": [2, int],
     "multiply_symbol": ["\\cdot", str],
     "no_10_to_the_zero": [True, bool],
+    "minus_symbol": ["-", str],
 }
 
 options = copy.deepcopy(DEFAULT_OPTIONS)
@@ -52,6 +53,7 @@ def real2tex(
     precision: int = None,
     multiply_symbol: str = None,
     no_10_to_the_zero: bool = None,
+    minus_symbol: str = None
 ) -> str:
     if precision is None:
         precision = options["precision"][0]
@@ -59,10 +61,12 @@ def real2tex(
         multiply_symbol = options["multiply_symbol"][0]
     if no_10_to_the_zero is None:
         no_10_to_the_zero = options["no_10_to_the_zero"][0]
+    if minus_symbol is None:
+        minus_symbol = options["minus_symbol"][0]
 
     mantissa, exponent, negative_exponent = scientific_notation(num, precision)
     if negative_exponent:
-        exponent = f"\\minus {exponent}"
+        exponent = f"{minus_symbol}{exponent}"
     if exponent == "0" and no_10_to_the_zero:
         return f"{mantissa}"
     return f"{mantissa} {multiply_symbol} 10^{{{exponent}}}"
